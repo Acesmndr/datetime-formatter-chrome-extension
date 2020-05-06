@@ -23,8 +23,6 @@
     checkbox.addEventListener('click', function(e) {
       const targetName = e.target.name;
       if(/type/.test(targetName)) {
-        console.log('Hello');
-        console.log(targetName, e.target.checked);
         regexList[targetName] = e.target.checked;
       } else {
         outputFormat[targetName] = e.target.checked;
@@ -34,9 +32,3 @@
     });
   });
 })();
-
-{
-regexList = {
-type1: {}
-}
-}

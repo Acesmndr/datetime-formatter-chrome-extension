@@ -3,7 +3,6 @@ chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
   switch(action) {
     case 'replaceDate':
       payload.applicableRegex.forEach(regEx => {
-        console.log(payload.dateFormat);
         findAndReplace(regEx, payload.dateFormat, document.body);
       });
   }
@@ -27,9 +26,6 @@ function findAndReplace(searchText, replacementFormat, searchNode) {
       findAndReplace(searchText, replacementFormat, currentNode);
     }
     if (currentNode.nodeType !== 3 || !regex.test(currentNode.data) ) {
-      if(/2020-05-06/.test(currentNode.data)) {
-        console.log(currentNode.data, regex.test(currentNode.data), regex);
-      }
       continue;
     }
     var parent = currentNode.parentNode,
@@ -51,7 +47,6 @@ function findAndReplace(searchText, replacementFormat, searchNode) {
 function replace(rawText, regex, replacementFormat) {
   try {
     const matchedText = rawText.match(regex)[0];
-    console.log(matchedText, replacementFormat);
     const replacementText = new Date(matchedText).toLocaleTimeString('en-US', replacementFormat);
     return rawText.replace(regex, replacementText);
   } catch(e) {

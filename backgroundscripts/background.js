@@ -18,7 +18,6 @@ chrome.browserAction.onClicked.addListener(() => {
       second: outputFormat.second && '2-digit',
       timeZone: outputFormat.utc ? 'utc' : Intl.DateTimeFormat().resolvedOptions().timeZone ,
     }
-    console.log(dateFormat);
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
       chrome.tabs.sendMessage(tabs[0].id, {
         action: 'replaceDate',
@@ -44,6 +43,7 @@ chrome.runtime.onInstalled.addListener(() => {
       hour: true,
       minute: true,
       month: true,
+      day: true,
     },
   });
 })
