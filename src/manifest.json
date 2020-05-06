@@ -1,0 +1,22 @@
+{
+	"manifest_version": 2,
+	"name": "DateTime Formatter",
+	"version": "EXTENSION_VERSION",
+	"description": "",
+  "permissions": [
+		"<all_urls>",
+    "tabs",
+    "storage"
+  ],
+  "content_scripts": [{
+        "run_at": "document_end",
+        "js": ["assets/contentscript.js"],
+        "all_frames" : true,
+        "match_about_blank": true,
+        "matches": ["http://*/*", "https://*/*"]
+   }],
+	"background":  {
+    "scripts": ["assets/background.js"]
+  },
+  "update_url": "https://define-it-later.xml"
+}
