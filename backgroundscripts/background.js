@@ -6,9 +6,29 @@ const dateRegex = {
 };
 
 chrome.browserAction.onClicked.addListener(() => {
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-    console.log('running');
-    chrome.tabs.sendMessage(tabs[0].id, {action: "replaceDate"}, function(response) {});  
+  chrome.storage.local.get((storageData) => {
+    const { regexList, outputFormat } = storageData;
+    const applicableRegex = Object.keys(dateRegex).filter(regEx => regexList[regEx]).map(regEx => dateRegex[regEx]);
+    const dateFormat = {
+      year: outputFormat.year && 'numeric',
+      month: outputFormat.month && 'short',
+      day: outputFormat.day && '2-digit',
+      hour: outputFormat.hour && '2-digit',
+      minute: outputFormat.minute && '2-digit',
+      second: outputFormat.second && '2-digit',
+      timeZone: outputFormat.utc ? 'utc' : Intl.DateTimeFormat().resolvedOptions().timeZone ,
+    }
+    console.log(dateFormat);
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, {
+        action: 'replaceDate',
+        payload: {
+          applicableRegex,
+          dateFormat,
+        }
+      },
+      (response) => {});
+    });
   });
 });
 
@@ -22,7 +42,8 @@ chrome.runtime.onInstalled.addListener(() => {
     },
     outputFormat: {
       hour: true,
-      minute: true
+      minute: true,
+      month: true,
     },
   });
 })

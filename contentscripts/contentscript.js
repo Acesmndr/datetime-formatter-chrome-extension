@@ -1,12 +1,11 @@
 chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
-  if (msg.action == 'replaceDate') {
-    // 1588783462775
-    findAndReplace('[0-9]{13}', '', document.body);
-    // 2020-05-06 15:53:07 +0000
-    findAndReplace('[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} \\+[0-9]{4}', '', document.body);
-    // 2020-05-03T00:00:00 05:45
-    findAndReplace('[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(.[0-9]{3})Z', '', document.body);
-    findAndReplace('[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\ [0-9]{2}:[0-9]{2})?', '', document.body);
+  const { action, payload } = msg;
+  switch(action) {
+    case 'replaceDate':
+      payload.applicableRegex.forEach(regEx => {
+        console.log(payload.dateFormat);
+        findAndReplace(regEx, payload.dateFormat, document.body);
+      });
   }
 });
 
@@ -52,8 +51,8 @@ function findAndReplace(searchText, replacementFormat, searchNode) {
 function replace(rawText, regex, replacementFormat) {
   try {
     const matchedText = rawText.match(regex)[0];
-    console.log(matchedText);
-    const replacementText = new Date(matchedText).toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
+    console.log(matchedText, replacementFormat);
+    const replacementText = new Date(matchedText).toLocaleTimeString('en-US', replacementFormat);
     return rawText.replace(regex, replacementText);
   } catch(e) {
     console.log('Couldn\'t convert a date');

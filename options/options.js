@@ -30,7 +30,7 @@
         outputFormat[targetName] = e.target.checked;
       }
       chrome.storage.local.set({ regexList, outputFormat });
-      e.target.checked && document.querySelector(`label[for=${targetName}]`).classList.add('active');
+      e.target.checked ? document.querySelector(`label[for=${targetName}]`).classList.add('active') : document.querySelector(`label[for=${targetName}]`).classList.remove('active');
     });
   });
 })();
