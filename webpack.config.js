@@ -14,6 +14,14 @@ const copyPlugin = new CopyWebpackPlugin([{
     },
     to: '../',
   },
+  {
+    from: './options/options.html',
+    to: '../'
+  },
+  {
+    from: './options/options.js',
+    to: '../'
+  }
 ]);
 const cleanPlugin = new CleanWebpackPlugin(['dist', 'production', 'build', 'development'], {
   root: __dirname,

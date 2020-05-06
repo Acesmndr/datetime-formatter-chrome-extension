@@ -1,14 +1,19 @@
 chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
-  console.log("Hello", msg);
   if (msg.action == 'replaceDate') {
+    // 1588783462775
+    findAndReplace('[0-9]{13}', '', document.body);
+    // 2020-05-06 15:53:07 +0000
+    findAndReplace('[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} \\+[0-9]{4}', '', document.body);
+    // 2020-05-03T00:00:00 05:45
     findAndReplace('[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(.[0-9]{3})Z', '', document.body);
+    findAndReplace('[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\ [0-9]{2}:[0-9]{2})?', '', document.body);
   }
 });
+
 
 function findAndReplace(searchText, replacementFormat, searchNode) {
   /** This function was derived from https://j11y.io/javascript/find-and-replace-text-with-javascript/ */
   if (!searchText || typeof replacementFormat === 'undefined') {
-    // Throw error here if you want...
     return;
   }
   var regex = typeof searchText === 'string' ?
@@ -23,6 +28,9 @@ function findAndReplace(searchText, replacementFormat, searchNode) {
       findAndReplace(searchText, replacementFormat, currentNode);
     }
     if (currentNode.nodeType !== 3 || !regex.test(currentNode.data) ) {
+      if(/2020-05-06/.test(currentNode.data)) {
+        console.log(currentNode.data, regex.test(currentNode.data), regex);
+      }
       continue;
     }
     var parent = currentNode.parentNode,
