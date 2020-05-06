@@ -8,6 +8,9 @@
     "tabs",
     "storage"
   ],
+  "browser_action": {
+    "default_title": "DateTime Formatter"
+  },
   "content_scripts": [{
         "run_at": "document_end",
         "js": ["assets/contentscript.js"],
