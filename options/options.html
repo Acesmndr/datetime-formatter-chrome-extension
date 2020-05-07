@@ -1,0 +1,124 @@
+<html>
+  <head>
+    <title>DateTime Formatter | Settings</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">  <body class="bg-light">
+    <main role="main" class="container">
+      <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded box-shadow">
+        <img class="mr-3" src="/assets/icons/icon128.png" alt="" width="48" height="48">
+        <div class="lh-100">
+          <h6 class="mb-0 text-white lh-100">DateTime Formatter (Settings)</h6>
+          <small>Convert all the date and time in current page to specified datetime format</small>
+        </div>
+      </div>
+
+      <div class="alert alert-info" role="alert">
+        The settings can be updated again by clicking on the extension icon and pressing the options menu item.
+      </div>
+
+      <div class="my-3 p-3 bg-white rounded box-shadow">
+        <h6 class="border-bottom border-gray pb-2 mb-0">Choose which date formats should be converted:</h6>
+        <div class="media text-muted pt-2 d-block">
+          <div class="custom-control custom-checkbox my-2">
+            <input type="checkbox" class="custom-control-input" id="type0" name="type0">
+            <label class="custom-control-label" for="type0">1588783462775 (Unix Timestamp)</label>
+          </div>
+          <div class="custom-control custom-checkbox my-2">
+            <input type="checkbox" class="custom-control-input" id="type1" name="type1">
+            <label class="custom-control-label" for="type1">2020-05-06 15:53:07 +0000</label>
+          </div>
+          <div class="custom-control custom-checkbox my-2">
+            <input type="checkbox" class="custom-control-input" id="type2" name="type2">
+            <label class="custom-control-label" for="type2">2020-05-03T00:00:00Z</label>
+          </div>
+          <div class="custom-control custom-checkbox my-2">
+            <input type="checkbox" class="custom-control-input" id="type3" name="type3">
+            <label class="custom-control-label" for="type3">2020-05-03T12:00:00</label>
+          </div>
+          <div class="custom-control custom-checkbox my-2">
+            <input type="checkbox" class="custom-control-input" id="type4" name="type4">
+            <label class="custom-control-label" for="type4">2020-05-06T17:06:35.855Z</label>
+          </div>
+          <div class="custom-control custom-checkbox my-2">
+            <input type="checkbox" class="custom-control-input" id="type5" name="type5">
+            <label class="custom-control-label" for="type5">Thursday, September 7, 2020 1:15 PM</label>
+          </div>
+          <div class="custom-control custom-checkbox my-2">
+            <input type="checkbox" class="custom-control-input" id="type6" name="type6">
+            <label class="custom-control-label" for="type6">Thu, Jan 7, 2020 1:15 PM</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="my-3 p-3 bg-white rounded box-shadow">
+        <h6 class="border-bottom border-gray pb-2 mb-0">Output Format <span class="ml-4" id="outputFormat"></span></h6>
+        <div class="my-2 row">
+          <label class="mt-2 col-2">Time:</label>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary" for="hour">
+              <input type="checkbox" name="hour" id="hour"> Hour
+            </label>
+            <label class="btn btn-secondary" for="minute">
+              <input type="checkbox" name="minute" id="minute"> Minute
+            </label>
+            <label class="btn btn-secondary" for="second">
+              <input type="checkbox" name="second" id="second"> Second
+            </label>
+          </div>
+        </div>
+        <div class="my-2 row">
+          <label class="mt-2 col-2">Date:</label>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary" for="day">
+              <input type="checkbox" name="day" id="day"> Day
+            </label>
+            <label class="btn btn-secondary" for="month">
+              <input type="checkbox" name="month" id="month"> Month
+            </label>
+            <label class="btn btn-secondary" for="year">
+              <input type="checkbox" name="year" id="year"> Year
+            </label>
+          </div>
+        </div>
+        <div class="my-2 row">
+          <label class="mt-2 col-2">Timezone:</label>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <!-- <label class="btn btn-secondary" for="local">
+              <input type="checkbox" name="local" id="local"> Local
+            </label> -->
+            <label class="btn btn-secondary" for="utc">
+              <input type="checkbox" name="utc" id="utc"> UTC
+            </label>
+          </div>
+        </div>
+        <div class="my-2 row">
+          <label class="mt-2 col-2">Date format:</label>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <!-- <label class="btn btn-secondary" for="local">
+              <input type="checkbox" name="local" id="local"> Local
+            </label> -->
+            <label class="btn btn-secondary" for="hour24">
+              <input type="checkbox" name="hour24" id="hour24"> 24 Hour
+            </label>
+          </div>
+        </div>
+        <div class="my-2 row">
+          <label class="mt-2 col-2">Highlight date:</label>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <!-- <label class="btn btn-secondary" for="local">
+              <input type="checkbox" name="local" id="local"> Local
+            </label> -->
+            <label class="btn btn-secondary" for="highlight">
+              <input type="checkbox" name="highlight" id="highlight"> Highlight
+            </label>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="footer bg-dark footer-1 p-2">
+      <div class="text-right">
+        <span><a href="mailto:acesmndr@gmail.com" class="text-muted">acesmndr@gmail.com</a></span>
+      </div>
+    </footer>
+    <script src="./options.js"></script>
+  </body>
+</html>
