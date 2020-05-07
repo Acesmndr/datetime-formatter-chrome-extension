@@ -3,13 +3,13 @@ chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
   switch(action) {
     case 'replaceDate':
       payload.applicableRegex.forEach(regEx => {
-        findAndReplace(regEx, payload.dateFormat, document.body);
+        findAndReplace(regEx, payload.dateFormat, payload.highlight, document.body);
       });
   }
 });
 
 
-function findAndReplace(searchText, replacementFormat, searchNode) {
+function findAndReplace(searchText, replacementFormat, highlight, searchNode) {
   /** This function was derived from https://j11y.io/javascript/find-and-replace-text-with-javascript/ */
   if (!searchText || typeof replacementFormat === 'undefined') {
     return;
@@ -23,14 +23,14 @@ function findAndReplace(searchText, replacementFormat, searchNode) {
     var currentNode = childNodes[cnLength];
     if (currentNode.nodeType === 1 &&
       (excludes + ',').indexOf(currentNode.nodeName.toLowerCase() + ',') === -1) {
-      findAndReplace(searchText, replacementFormat, currentNode);
+      findAndReplace(searchText, replacementFormat, highlight, currentNode);
     }
     if (currentNode.nodeType !== 3 || !regex.test(currentNode.data) ) {
       continue;
     }
     var parent = currentNode.parentNode,
     frag = (function(){
-      var html = replace(currentNode.data, regex, replacementFormat),
+      var html = replace(currentNode.data, regex, highlight, replacementFormat),
       wrap = document.createElement('div'),
       frag = document.createDocumentFragment();
       wrap.innerHTML = html;
@@ -44,11 +44,11 @@ function findAndReplace(searchText, replacementFormat, searchNode) {
   }
 }
 
-function replace(rawText, regex, replacementFormat) {
+function replace(rawText, regex, highlight, replacementFormat) {
   try {
     const matchedText = rawText.match(regex)[0];
-    const replacementText = new Date(matchedText).toLocaleTimeString('en-US', replacementFormat);
-    return rawText.replace(regex, replacementText);
+    const replacementText = new Date(isNaN(Number(matchedText)) ? matchedText : Number(matchedText)).toLocaleTimeString('en-US', replacementFormat);
+    return rawText.replace(regex, highlight ? `<mark>${replacementText}</mark>` : replacementText);
   } catch(e) {
     console.log('Couldn\'t convert a date');
     return rawText;

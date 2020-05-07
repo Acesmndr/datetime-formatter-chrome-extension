@@ -10,7 +10,13 @@
     "https://stackpath.bootstrapcdn.com/*"
   ],
   "browser_action": {
-    "default_title": "DateTime Formatter"
+    "default_title": "DateTime Formatter",
+    "default_icon": "assets/icons/icon128.png"
+  },
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
   },
   "options_page": "options.html",
   "content_scripts": [{

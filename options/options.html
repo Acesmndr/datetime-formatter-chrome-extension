@@ -5,7 +5,7 @@
   <body class="bg-light">
     <main role="main" class="container">
       <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded box-shadow">
-        <img class="mr-3" src="/icon.png" alt="" width="48" height="48">
+        <img class="mr-3" src="/assets/icons/icon128.png" alt="" width="48" height="48">
         <div class="lh-100">
           <h6 class="mb-0 text-white lh-100">DateTime Formatter (Options)</h6>
           <small>Convert all the date and time in current page to specified format and timezone</small>
@@ -78,6 +78,28 @@
             </label> -->
             <label class="btn btn-secondary" for="utc">
               <input type="checkbox" name="utc" id="utc"> UTC
+            </label>
+          </div>
+        </div>
+        <div class="my-2 row">
+          <label class="mt-2 col-2">Date format:</label>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <!-- <label class="btn btn-secondary" for="local">
+              <input type="checkbox" name="local" id="local"> Local
+            </label> -->
+            <label class="btn btn-secondary" for="hour24">
+              <input type="checkbox" name="hour24" id="hour24"> 24 Hour
+            </label>
+          </div>
+        </div>
+        <div class="my-2 row">
+          <label class="mt-2 col-2">Highlight date:</label>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <!-- <label class="btn btn-secondary" for="local">
+              <input type="checkbox" name="local" id="local"> Local
+            </label> -->
+            <label class="btn btn-secondary" for="highlight">
+              <input type="checkbox" name="highlight" id="highlight"> Highlight
             </label>
           </div>
         </div>

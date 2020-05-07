@@ -21,7 +21,11 @@ const copyPlugin = new CopyWebpackPlugin([{
   {
     from: './options/options.js',
     to: '../'
-  }
+  },
+  , {
+    from: './src/icons/',
+    to: 'icons/',
+  },
 ]);
 const cleanPlugin = new CleanWebpackPlugin(['dist', 'production', 'build', 'development'], {
   root: __dirname,

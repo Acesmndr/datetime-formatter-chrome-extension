@@ -16,6 +16,7 @@ chrome.browserAction.onClicked.addListener(() => {
       hour: outputFormat.hour && '2-digit',
       minute: outputFormat.minute && '2-digit',
       second: outputFormat.second && '2-digit',
+      hour12: !outputFormat.hour24,
       timeZone: outputFormat.utc ? 'utc' : Intl.DateTimeFormat().resolvedOptions().timeZone ,
     }
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
@@ -24,6 +25,7 @@ chrome.browserAction.onClicked.addListener(() => {
         payload: {
           applicableRegex,
           dateFormat,
+          highlight: outputFormat.highlight,
         }
       },
       (response) => {});
