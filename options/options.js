@@ -1,5 +1,5 @@
 const generateOutputDate = (format) => {
-  return new Date().toLocaleDateString('en-US', {
+  return new Date().toLocaleTimeString('en-US', {
     year: format.year ? 'numeric' : undefined,
     month: format.month ? 'short' : undefined,
     day: format.day ? '2-digit' : undefined,
@@ -7,7 +7,7 @@ const generateOutputDate = (format) => {
     minute: format.minute ? '2-digit' : undefined,
     second: format.second ? '2-digit' : undefined,
     hour12: !format.hour24,
-    timeZone: format.utc ? 'utc' : Intl.DateTimeFormat().resolvedOptions().timeZone ,
+    timeZone: format.utc ? 'utc' : Intl.DateTimeFormat().resolvedOptions().timeZone,
   });
 };
 
