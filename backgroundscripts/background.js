@@ -1,10 +1,11 @@
 const dateRegex = {
   type0: '[0-9]{13}',
-  type1: '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} \\+[0-9]{4}',
-  type2: '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(.[0-9]{3})Z',
-  type3: '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\ [0-9]{2}:[0-9]{2})?',
-  type4: '(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\\,\\ (January|February|March|April|May|June|July|August|September|October|November|December)\\ [0-9]{1,2},\\ [0-9]{4}\\ [0-9]{1,2}:[0-9]{2}\\ (AM|PM)',
-  type5: '((Sun|Mon|Tue|Wed|Thu|Fri|Sat)\\,\\ )?[a-zA-Z]{3}\\ [0-9]{1,2},\\ [0-9]{4}\\ [0-9]{1,2}:[0-9]{2}\\ (AM|PM)',
+  type1: '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} (\\+|\\-)[0-9]{4}',
+  type2: '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z',
+  type3: '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(.[0-9]{3})Z',
+  type4: '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}',
+  type5: '(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\\,\\ (January|February|March|April|May|June|July|August|September|October|November|December)\\ [0-9]{1,2},\\ [0-9]{4}\\ [0-9]{1,2}:[0-9]{2}\\ (AM|PM)',
+  type6: '((Sun|Mon|Tue|Wed|Thu|Fri|Sat)\\,\\ )?[a-zA-Z]{3}\\ [0-9]{1,2},\\ [0-9]{4}\\ [0-9]{1,2}:[0-9]{2}\\ (AM|PM)',
 };
 
 chrome.browserAction.onClicked.addListener(() => {
@@ -42,6 +43,7 @@ chrome.runtime.onInstalled.addListener(() => {
       type1: true,
       type2: true,
       type3: true,
+      type4: true,
     },
     outputFormat: {
       hour: true,

@@ -47,7 +47,7 @@ function findAndReplace(searchText, replacementFormat, highlight, searchNode) {
 function replace(rawText, regex, highlight, replacementFormat) {
   try {
     const matchedText = rawText.match(regex)[0];
-    const replacementText = new Date(isNaN(Number(matchedText)) ? matchedText : Number(matchedText)).toLocaleTimeString('en-US', replacementFormat);
+    let replacementText = new Date(isNaN(Number(matchedText)) ? matchedText : Number(matchedText)).toLocaleTimeString('en-US', replacementFormat);
     return rawText.replace(regex, highlight ? `<mark>${replacementText}</mark>` : replacementText);
   } catch(e) {
     console.log('Couldn\'t convert a date');
