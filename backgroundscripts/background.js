@@ -48,6 +48,9 @@ chrome.runtime.onInstalled.addListener(() => {
       minute: true,
       month: true,
       day: true,
+      highlight: true,
     },
+  }, () => {
+    chrome.runtime.openOptionsPage();
   });
 })
