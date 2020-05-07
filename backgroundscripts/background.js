@@ -12,12 +12,12 @@ chrome.browserAction.onClicked.addListener(() => {
     const { regexList, outputFormat } = storageData;
     const applicableRegex = Object.keys(dateRegex).filter(regEx => regexList[regEx]).map(regEx => dateRegex[regEx]);
     const dateFormat = {
-      year: outputFormat.year && 'numeric',
-      month: outputFormat.month && 'short',
-      day: outputFormat.day && '2-digit',
-      hour: outputFormat.hour && '2-digit',
-      minute: outputFormat.minute && '2-digit',
-      second: outputFormat.second && '2-digit',
+      year: outputFormat.year ? 'numeric' : undefined,
+      month: outputFormat.month ? 'short' : undefined,
+      day: outputFormat.day ? '2-digit' : undefined,
+      hour: outputFormat.hour ? '2-digit' : undefined,
+      minute: outputFormat.minute ? '2-digit' : undefined,
+      second: outputFormat.second ? '2-digit' : undefined,
       hour12: !outputFormat.hour24,
       timeZone: outputFormat.utc ? 'utc' : Intl.DateTimeFormat().resolvedOptions().timeZone ,
     }
