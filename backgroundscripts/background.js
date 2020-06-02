@@ -24,6 +24,7 @@ chrome.runtime.onInstalled.addListener(() => {
       type2: true,
       type3: true,
       type4: true,
+      type5: true,
     },
     outputFormat: {
       hour: true,
@@ -31,8 +32,9 @@ chrome.runtime.onInstalled.addListener(() => {
       month: true,
       day: true,
       highlight: true,
+      validFor100Years: true,
     },
   }, () => {
     chrome.runtime.openOptionsPage();
   });
-})
+});

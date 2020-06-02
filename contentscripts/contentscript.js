@@ -4,18 +4,39 @@ const dateRegex = {
   type2: '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z',
   type3: '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(.[0-9]{3})Z',
   type4: '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}',
-  type5: '(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\\,\\ (January|February|March|April|May|June|July|August|September|October|November|December)\\ [0-9]{1,2},\\ [0-9]{4}\\ [0-9]{1,2}:[0-9]{2}\\ (AM|PM)',
-  type6: '((Sun|Mon|Tue|Wed|Thu|Fri|Sat)\\,\\ )?[a-zA-Z]{3}\\ [0-9]{1,2},\\ [0-9]{4}\\ [0-9]{1,2}:[0-9]{2}\\ (AM|PM)',
-  type7: '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} UTC',
+  type5: '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} UTC',
+  type6: '(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\\,\\ (January|February|March|April|May|June|July|August|September|October|November|December)\\ [0-9]{1,2},\\ [0-9]{4}\\ [0-9]{1,2}:[0-9]{2}\\ (AM|PM)',
+  type7: '((Sun|Mon|Tue|Wed|Thu|Fri|Sat)\\,\\ )?[a-zA-Z]{3}\\ [0-9]{1,2},\\ [0-9]{4}\\ [0-9]{1,2}:[0-9]{2}\\ (AM|PM)',
 };
 
-const replace = (rawText, regex, highlight, replacementFormat) => {
+const dateLiesOutsideTimeFrame = (dateText, validFor100Years) => {
+  if (validFor100Years) {
+    const dateTime = new Date(dateText) && new Date(dateText).getTime();
+    const oneHundredYears = 31556952000000; // 10 x 365 x 24 x 60 x 60 x 1000 milliseconds
+    if ((dateTime - Date.now()) > oneHundredYears && dateTime !== 0) {
+      return true;
+    }
+  }
+  return false;
+}
+
+const replace = (rawText, regex, outputConfig, replacementFormat) => {
   try {
     const matchedText = rawText.match(regex)[0];
-    let replacementText = new Date(regex === dateRegex['type0'] ? Number(matchedText) : matchedText).toLocaleTimeString('en-US', replacementFormat);
-    return rawText.replace(regex, highlight ? `<mark>${replacementText}</mark>` : replacementText);
+    let replacementText = matchedText;
+    if (dateRegex.type0 === regex.source) {
+      replacementText = Number(matchedText.match(regex)[0]);
+    }
+    if(dateLiesOutsideTimeFrame(replacementText, outputConfig.validFor100Years)) {
+      return rawText;
+    }
+    replacementText = new Date(replacementText).toLocaleTimeString('en-US', replacementFormat);
+    if (replacementText === 'Invalid Date') {
+      return rawText;
+    }
+    return rawText.replace(regex, outputConfig.highlight ? `<mark title='${rawText}'>${replacementText}</mark>` : replacementText);
   } catch(e) {
-    console.log('Couldn\'t convert a date');
+    console.log('Couldn\'t convert a date', rawText, regex);
     return rawText;
   }
 };
@@ -69,6 +90,6 @@ chrome.storage.local.get((storageData) => {
     timeZone: outputFormat.utc ? 'utc' : Intl.DateTimeFormat().resolvedOptions().timeZone,
   }
   applicableRegex.forEach(regEx => {
-    findAndReplace(regEx, dateFormat, outputFormat.highlight, document.body);
+    findAndReplace(regEx, dateFormat, { highlight: outputFormat.highlight, validFor100Years: outputFormat.validFor100Years }, document.body);
   });
 });
