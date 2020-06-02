@@ -17,10 +17,11 @@ const updateOutput = (format) => {
 };
 
 (function(){
-  let regexList, outputFormat;
+  let regexList, outputFormat, alertBoxes;
   chrome.storage.local.get(storeData => {
     regexList = storeData.regexList || {};
     outputFormat = storeData.outputFormat || {};
+    alertBoxes = storeData.alertBoxes || {};
     if(regexList && Object.keys(regexList).length) {
       Object.keys(regexList).forEach(regEx => {
         regexList[regEx] && document.querySelector(`input[type="checkbox"][name="${regEx}"]`).setAttribute('checked', true);
@@ -35,9 +36,25 @@ const updateOutput = (format) => {
       });
       updateOutput(outputFormat);
     }
+    if(alertBoxes && Object.keys(alertBoxes).length) {
+      Object.keys(alertBoxes).forEach(alert => {
+        alertBoxes[alert] && document.querySelector(`div[name="${alert}-block"]`).removeAttribute('hidden');
+      }); 
+    }
   });
 
-  var checkboxes = document.querySelectorAll("input[type='checkbox']");
+  const closeButtons = document.querySelectorAll('button');
+  closeButtons.forEach(function(buttons) {
+    buttons.addEventListener('click', function(e) {
+      const targetName = e.target.parentElement.id;
+      alertBoxes[targetName] = false;
+      chrome.storage.local.set({ alertBoxes }, () => {
+        document.querySelector(`div[name="${targetName}-block"]`).setAttribute('hidden', true);
+      });
+    });
+  });
+
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
   checkboxes.forEach(function(checkbox) {
     checkbox.addEventListener('click', function(e) {
       const targetName = e.target.name;

@@ -11,12 +11,15 @@
         </div>
       </div>
 
-      <div class="alert alert-info" role="alert">
+      <div class="alert alert-info" role="alert" name="info-block" hidden>
+        <button type="button" class="close" aria-label="Close" id="info">
+          <span aria-hidden="true">&times;</span>
+        </button>
         The settings can be updated again by clicking on the extension icon and pressing the options menu item.
       </div>
 
-      <div class="alert alert-success" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <div class="alert alert-success" role="alert" name="whatsnew-block" hidden>
+        <button type="button" class="close" aria-label="Close" id="whatsnew">
           <span aria-hidden="true">&times;</span>
         </button>
         <h5 class="alert-heading">What's new in v1.2.0</h5>
