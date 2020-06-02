@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "DateTime Formatter",
 	"version": "EXTENSION_VERSION",
-	"description": "An extension to format all the date and time in current page to specified datetime format",
+	"description": "Format all the date and time in current page to specified datetime format",
   "permissions": [
     "activeTab",
     "storage",
