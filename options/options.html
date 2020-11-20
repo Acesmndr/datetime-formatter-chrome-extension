@@ -11,8 +11,25 @@
         </div>
       </div>
 
-      <div class="alert alert-info" role="alert">
+      <div class="alert alert-info" role="alert" name="info-block" hidden>
+        <button type="button" class="close" aria-label="Close" id="info">
+          <span aria-hidden="true">&times;</span>
+        </button>
         The settings can be updated again by clicking on the extension icon and pressing the options menu item.
+      </div>
+
+      <div class="alert alert-success" role="alert" name="whatsnew-block" hidden>
+        <button type="button" class="close" aria-label="Close" id="whatsnew">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="alert-heading">What's new in v1.2.0</h5>
+        * Add support for a new date type.
+        <br/>
+        * Add tooltip for highlighted converted date to show original date that got converted.
+        <br/>
+        * Add valid date range support so that only a range of +/-100 years is converted when enabled.
+        <br/>
+        * Allocate memory only while conversion is done
       </div>
 
       <div class="my-3 p-3 bg-white rounded box-shadow">
@@ -40,11 +57,15 @@
           </div>
           <div class="custom-control custom-checkbox my-2">
             <input type="checkbox" class="custom-control-input" id="type5" name="type5">
-            <label class="custom-control-label" for="type5">Thursday, September 7, 2020 1:15 PM</label>
+            <label class="custom-control-label" for="type5">2020-04-20 09:00:00 UTC</label>
           </div>
           <div class="custom-control custom-checkbox my-2">
             <input type="checkbox" class="custom-control-input" id="type6" name="type6">
-            <label class="custom-control-label" for="type6">Thu, Jan 7, 2020 1:15 PM</label>
+            <label class="custom-control-label" for="type6">Thursday, September 7, 2020 1:15 PM</label>
+          </div>
+          <div class="custom-control custom-checkbox my-2">
+            <input type="checkbox" class="custom-control-input" id="type7" name="type7">
+            <label class="custom-control-label" for="type7">Thu, Jan 7, 2020 1:15 PM</label>
           </div>
         </div>
       </div>
@@ -82,10 +103,7 @@
         <div class="my-2 row">
           <label class="mt-2 col-2">Timezone:</label>
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <!-- <label class="btn btn-secondary" for="local">
-              <input type="checkbox" name="local" id="local"> Local
-            </label> -->
-            <label class="btn btn-secondary" for="utc">
+            <label class="btn btn-secondary" for="utc" title="Uncheck for date in local timezone">
               <input type="checkbox" name="utc" id="utc"> UTC
             </label>
           </div>
@@ -93,10 +111,7 @@
         <div class="my-2 row">
           <label class="mt-2 col-2">Date format:</label>
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <!-- <label class="btn btn-secondary" for="local">
-              <input type="checkbox" name="local" id="local"> Local
-            </label> -->
-            <label class="btn btn-secondary" for="hour24">
+            <label class="btn btn-secondary" for="hour24" title="Uncheck for 12 hour AM/PM format">
               <input type="checkbox" name="hour24" id="hour24"> 24 Hour
             </label>
           </div>
@@ -104,11 +119,16 @@
         <div class="my-2 row">
           <label class="mt-2 col-2">Highlight date:</label>
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <!-- <label class="btn btn-secondary" for="local">
-              <input type="checkbox" name="local" id="local"> Local
-            </label> -->
-            <label class="btn btn-secondary" for="highlight">
+            <label class="btn btn-secondary" for="highlight" title="Uncheck to disable highlighting">
               <input type="checkbox" name="highlight" id="highlight"> Highlight
+            </label>
+          </div>
+        </div>
+        <div class="my-2 row">
+          <label class="mt-2 col-2">Valid date range:</label>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary" for="validFor100Years" title="Uncheck to set it to infinity. If checked only date a hundred years before and after current date is converted">
+              <input type="checkbox" name="validFor100Years" id="validFor100Years"> 100 years
             </label>
           </div>
         </div>
